@@ -3,6 +3,7 @@ import { FC } from 'react';
 import Image from 'next/image';
 import { IState } from '@/types';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 interface IProps {
   state: IState[] | undefined;
@@ -14,11 +15,12 @@ const Countries: FC<IProps> = ({ state }) => {
       <div className="px-9 py-8">
         <div className="grid gap-10 md:grid-cols-[1fr_1fr] lg:grid-cols-[1fr_1fr_1fr] xl:grid-cols-[1fr_1fr_1fr_1fr]">
           {state?.map((state, index) => (
-            <Link
-              href={`/${state.cca3}`}
+            <motion.article
+              whileHover={{ scale: 1.05 }}
+              key={index}
               className="bg-trasition rounded-[5px] bg-white shadow-[0px_0px_7px_2px_rgba(0,0,0,0.03)] dark:bg-HeaderDark"
             >
-              <article key={index}>
+              <Link href={`/${state.cca3}`}>
                 <div className="relative aspect-[1.6/1] w-full rounded-t-[5px]">
                   <Image
                     src={state.flags.svg}
@@ -40,8 +42,8 @@ const Countries: FC<IProps> = ({ state }) => {
                     Capital: <span className="font-light">{state.capital}</span>
                   </p>
                 </div>
-              </article>
-            </Link>
+              </Link>
+            </motion.article>
           ))}
         </div>
       </div>

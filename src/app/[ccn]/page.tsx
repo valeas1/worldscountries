@@ -3,6 +3,8 @@ import { FC } from 'react';
 import Image from 'next/image';
 import { IState } from '@/types';
 import Link from 'next/link';
+import { Metadata } from 'next';
+import { title } from 'process';
 
 async function getData(ccn: string) {
   const res = await fetch(`https://restcountries.com/v3.1/alpha/${ccn}`, {
@@ -15,6 +17,14 @@ async function getData(ccn: string) {
 
   return res.json();
 }
+
+export const generateMetadata = async ({ params: { ccn } }: { params: { ccn: string } }) => {
+  const data: IState[] = await getData(ccn);
+
+  return {
+    title: data[0].name.common,
+  };
+};
 
 const CountryPage: FC<{ params: { ccn: string } }> = async ({ params: { ccn } }) => {
   const data: IState[] = await getData(ccn);

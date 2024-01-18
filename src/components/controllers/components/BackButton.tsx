@@ -9,8 +9,6 @@ const BackButton: FC = () => {
 
   const router = useRouter();
 
-  console.log(router);
-
   useEffect(() => {
     setMounted(true);
   }, []);
